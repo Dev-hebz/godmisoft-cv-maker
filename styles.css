@@ -355,6 +355,14 @@ body {
     box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
 }
 
+.form-input[required], .form-textarea[required] {
+    border-left: 4px solid var(--primary-color);
+}
+
+.form-input:invalid {
+    border-color: var(--danger-color);
+}
+
 .form-textarea {
     resize: vertical;
     font-family: inherit;

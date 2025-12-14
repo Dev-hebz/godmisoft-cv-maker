@@ -85,18 +85,59 @@ function createTemplateCard(template) {
     card.dataset.id = template.id;
     card.dataset.category = template.category;
     
+    // Rich sample data for better preview
+    const sampleData = {
+        fullName: 'John Doe',
+        jobTitle: 'Senior Software Developer',
+        email: 'john.doe@email.com',
+        phone: '+1 (555) 123-4567',
+        address: 'New York, NY',
+        linkedin: 'linkedin.com/in/johndoe',
+        summary: 'Experienced software developer with 8+ years of expertise in full-stack development, leading teams, and delivering high-quality solutions.',
+        experience: [
+            {
+                position: 'Senior Developer',
+                company: 'Tech Corp',
+                startDate: '2020',
+                endDate: 'Present',
+                description: 'Leading development team and architecting scalable solutions.'
+            },
+            {
+                position: 'Software Engineer',
+                company: 'Digital Solutions',
+                startDate: '2016',
+                endDate: '2020',
+                description: 'Developed web applications and mobile apps.'
+            }
+        ],
+        education: [
+            {
+                degree: 'Bachelor of Science in Computer Science',
+                institution: 'University of Technology',
+                year: '2016'
+            }
+        ],
+        skills: [
+            {name: 'JavaScript'},
+            {name: 'Python'},
+            {name: 'React'},
+            {name: 'Node.js'},
+            {name: 'SQL'}
+        ],
+        languages: [
+            {name: 'English', level: 'Native'},
+            {name: 'Spanish', level: 'Professional'}
+        ],
+        certifications: [
+            {name: 'AWS Certified Developer', issuer: 'Amazon', year: '2023'}
+        ]
+    };
+    
     card.innerHTML = `
         <div class="template-preview">
             <div class="template-badge">${template.category}</div>
             <div style="transform: scale(0.15); transform-origin: top left; width: 666%; height: 666%; overflow: hidden;">
-                ${template.generate({
-                    fullName: 'John Doe',
-                    jobTitle: 'Professional',
-                    email: 'john@example.com',
-                    summary: 'Experienced professional...',
-                    experience: [{position: 'Position', company: 'Company', startDate: '2020', endDate: 'Present'}],
-                    skills: [{name: 'Skill 1'}, {name: 'Skill 2'}]
-                })}
+                ${template.generate(sampleData)}
             </div>
         </div>
         <div class="template-info">
@@ -557,6 +598,27 @@ function clearAllData() {
 async function downloadPDF() {
     if (!currentTemplate) {
         showNotification('Please select a template first!', 'warning');
+        return;
+    }
+    
+    // Validate required fields
+    if (!cvData.email || cvData.email.trim() === '') {
+        showNotification('Email address is required! Please fill in your email.', 'error');
+        document.getElementById('email').focus();
+        return;
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cvData.email)) {
+        showNotification('Please enter a valid email address!', 'error');
+        document.getElementById('email').focus();
+        return;
+    }
+    
+    if (!cvData.fullName || cvData.fullName.trim() === '') {
+        showNotification('Full name is required!', 'warning');
+        document.getElementById('fullName').focus();
         return;
     }
     
