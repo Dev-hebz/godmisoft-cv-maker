@@ -85,51 +85,37 @@ function createTemplateCard(template) {
     card.dataset.id = template.id;
     card.dataset.category = template.category;
     
-    // Rich sample data for better preview
-    const sampleData = {
-        fullName: 'John Doe',
-        jobTitle: 'Senior Developer',
-        email: 'john@email.com',
-        phone: '+1 555-1234',
-        address: 'New York, NY',
-        summary: 'Experienced professional with expertise in software development and team leadership.',
-        experience: [
-            {
-                position: 'Senior Developer',
-                company: 'Tech Corporation',
-                startDate: '2020',
-                endDate: 'Present',
-                description: 'Leading development team and architecting solutions.'
-            }
-        ],
-        education: [
-            {
-                degree: 'BS Computer Science',
-                institution: 'University of Technology',
-                year: '2016'
-            }
-        ],
-        skills: [
-            {name: 'JavaScript'},
-            {name: 'Python'},
-            {name: 'React'},
-            {name: 'Node.js'}
-        ],
-        languages: [
-            {name: 'English', level: 'Native'}
-        ],
-        certifications: [
-            {name: 'AWS Certified', issuer: 'Amazon', year: '2023'}
-        ]
+    // Color schemes based on category
+    const categoryColors = {
+        modern: ['#2563eb', '#667eea', '#3b82f6', '#6366f1', '#8b5cf6'],
+        classic: ['#1f2937', '#374151', '#4b5563', '#6b7280', '#9ca3af'],
+        creative: ['#ec4899', '#f59e0b', '#ef4444', '#10b981', '#8b5cf6'],
+        business: ['#1e40af', '#0369a1', '#075985', '#1e3a8a', '#166534'],
+        minimalist: ['#000000', '#2c2c2c', '#1a1a1a', '#333333', '#141414']
     };
     
-    const previewHTML = template.generate(sampleData);
+    const colors = categoryColors[template.category] || categoryColors.modern;
+    const colorIndex = (template.id - 1) % colors.length;
+    const primaryColor = colors[colorIndex];
     
+    // Create visual placeholder
     card.innerHTML = `
         <div class="template-preview">
             <div class="template-badge">${template.category}</div>
-            <div class="template-preview-wrapper">
-                ${previewHTML}
+            <div class="template-placeholder" style="background: linear-gradient(135deg, ${primaryColor}15 0%, ${primaryColor}05 100%);">
+                <div class="placeholder-header" style="background: ${primaryColor}; height: 60px; margin-bottom: 15px;"></div>
+                <div class="placeholder-line" style="background: ${primaryColor}40; height: 8px; margin: 8px 20px; border-radius: 4px;"></div>
+                <div class="placeholder-line" style="background: ${primaryColor}30; height: 8px; margin: 8px 20px; width: 70%; border-radius: 4px;"></div>
+                <div style="margin: 20px;">
+                    <div class="placeholder-section" style="background: ${primaryColor}20; height: 40px; margin: 10px 0; border-radius: 6px;"></div>
+                    <div class="placeholder-section" style="background: ${primaryColor}20; height: 40px; margin: 10px 0; border-radius: 6px;"></div>
+                    <div style="display: flex; gap: 8px; margin-top: 15px;">
+                        <div style="background: ${primaryColor}; width: 50px; height: 20px; border-radius: 10px;"></div>
+                        <div style="background: ${primaryColor}; width: 50px; height: 20px; border-radius: 10px;"></div>
+                        <div style="background: ${primaryColor}; width: 50px; height: 20px; border-radius: 10px;"></div>
+                    </div>
+                </div>
+                <div class="template-preview-label" style="position: absolute; bottom: 10px; right: 10px; background: white; padding: 5px 10px; border-radius: 5px; font-size: 11px; color: ${primaryColor}; font-weight: 600;">Click to Preview</div>
             </div>
         </div>
         <div class="template-info">

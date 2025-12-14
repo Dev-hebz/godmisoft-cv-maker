@@ -267,15 +267,33 @@ body {
     position: relative;
     overflow: hidden;
     border: 1px solid var(--border-color);
+    padding: 15px;
 }
 
-.template-preview-wrapper {
-    transform: scale(0.28);
-    transform-origin: top center;
-    width: 357%;
-    height: 357%;
+.template-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
     overflow: hidden;
-    pointer-events: none;
+}
+
+.placeholder-header {
+    border-radius: 8px 8px 0 0;
+    margin: -20px -20px 15px -20px;
+}
+
+.placeholder-line {
+    border-radius: 4px;
+}
+
+.placeholder-section {
+    border-radius: 6px;
+}
+
+.template-preview-label {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .template-badge {
