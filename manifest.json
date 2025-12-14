@@ -1,0 +1,35 @@
+{
+  "name": "Godmisoft CV Maker - Professional Resume Builder",
+  "short_name": "CV Maker",
+  "description": "Create professional CVs with 50+ templates. Free CV Maker by Godmisoft.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e3a8a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "logo.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["productivity", "business", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Create New CV",
+      "short_name": "New CV",
+      "description": "Start creating a new CV",
+      "url": "/?action=new",
+      "icons": [{ "src": "logo.png", "sizes": "192x192" }]
+    }
+  ]
+}
