@@ -100,6 +100,8 @@ function generateTemplate(data, primary, secondary, accent, category, variant) {
                     ${generateExperienceSection(d, p, s)}
                     ${generateEducationSection(d, p, s)}
                     ${generateSkillsSection(d, p)}
+                    ${generateLanguagesSection(d, p, s)}
+                    ${generateCertificationsSection(d, p, s)}
                 </div>
             `,
             (d, p, s, a) => `
@@ -114,6 +116,8 @@ function generateTemplate(data, primary, secondary, accent, category, variant) {
                         ${generateExperienceSection(d, p, s)}
                         ${generateEducationSection(d, p, s)}
                         ${generateSkillsSection(d, p)}
+                        ${generateLanguagesSection(d, p, s)}
+                        ${generateCertificationsSection(d, p, s)}
                     </div>
                 </div>
             `,
@@ -150,6 +154,8 @@ function generateTemplate(data, primary, secondary, accent, category, variant) {
                     ${generateExperienceSection(d, p, s)}
                     ${generateEducationSection(d, p, s)}
                     ${generateSkillsSection(d, p)}
+                    ${generateLanguagesSection(d, p, s)}
+                    ${generateCertificationsSection(d, p, s)}
                 </div>
             `
         ],
@@ -167,6 +173,8 @@ function generateTemplate(data, primary, secondary, accent, category, variant) {
                         ${generateExperienceSection(d, p, s)}
                         ${generateEducationSection(d, p, s)}
                         ${generateSkillsSection(d, p)}
+                        ${generateLanguagesSection(d, p, s)}
+                        ${generateCertificationsSection(d, p, s)}
                     </div>
                 </div>
             `
@@ -183,6 +191,8 @@ function generateTemplate(data, primary, secondary, accent, category, variant) {
                     ${generateExperienceSection(d, p, s)}
                     ${generateEducationSection(d, p, s)}
                     ${generateSkillsSection(d, p)}
+                    ${generateLanguagesSection(d, p, s)}
+                    ${generateCertificationsSection(d, p, s)}
                 </div>
             `
         ],
@@ -199,6 +209,8 @@ function generateTemplate(data, primary, secondary, accent, category, variant) {
                     ${generateExperienceSection(d, p, s)}
                     ${generateEducationSection(d, p, s)}
                     ${generateSkillsSection(d, p)}
+                    ${generateLanguagesSection(d, p, s)}
+                    ${generateCertificationsSection(d, p, s)}
                 </div>
             `
         ]
@@ -280,12 +292,64 @@ function generateSkillsSection(data, primary) {
     `;
 }
 
+function generateLanguagesSection(data, primary, secondary) {
+    if (!data.languages || data.languages.length === 0) return '';
+    return `
+        <div style="margin-bottom: 20px;">
+            <h3 style="color: ${primary}; font-size: 16px; margin-bottom: 15px; text-transform: uppercase;">Languages</h3>
+            ${data.languages.map(lang => `
+                <div style="margin-bottom: 12px;">
+                    <span style="color: #1f2937; font-weight: 600; font-size: 14px;">${lang.name || ''}</span>
+                    <span style="color: ${secondary}; font-size: 13px; margin-left: 10px;">• ${lang.level || ''}</span>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function generateCertificationsSection(data, primary, secondary) {
+    if (!data.certifications || data.certifications.length === 0) return '';
+    return `
+        <div style="margin-bottom: 20px;">
+            <h3 style="color: ${primary}; font-size: 16px; margin-bottom: 15px; text-transform: uppercase;">Certifications</h3>
+            ${data.certifications.map(cert => `
+                <div style="margin-bottom: 15px;">
+                    <h4 style="color: #1f2937; margin: 0 0 5px 0; font-size: 14px; font-weight: 600;">${cert.name || ''}</h4>
+                    <p style="color: ${secondary}; margin: 0; font-size: 13px;">${cert.issuer || ''} • ${cert.year || ''}</p>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
 function generateSkillsSidebar(data) {
     if (!data.skills || data.skills.length === 0) return '';
-    return `
+    let html = `
         <div style="margin-top: 25px;">
             <h3 style="font-size: 16px; margin-bottom: 15px; border-bottom: 2px solid white; padding-bottom: 8px;">SKILLS</h3>
             ${data.skills.map(skill => `<p style="font-size: 13px; margin: 10px 0; padding: 8px; background: rgba(255,255,255,0.2); border-radius: 5px;">${skill.name || ''}</p>`).join('')}
         </div>
     `;
+    
+    // Add languages if available
+    if (data.languages && data.languages.length > 0) {
+        html += `
+        <div style="margin-top: 25px;">
+            <h3 style="font-size: 16px; margin-bottom: 15px; border-bottom: 2px solid white; padding-bottom: 8px;">LANGUAGES</h3>
+            ${data.languages.map(lang => `<p style="font-size: 13px; margin: 10px 0; padding: 8px; background: rgba(255,255,255,0.2); border-radius: 5px;">${lang.name || ''} - ${lang.level || ''}</p>`).join('')}
+        </div>
+        `;
+    }
+    
+    // Add certifications if available
+    if (data.certifications && data.certifications.length > 0) {
+        html += `
+        <div style="margin-top: 25px;">
+            <h3 style="font-size: 16px; margin-bottom: 15px; border-bottom: 2px solid white; padding-bottom: 8px;">CERTIFICATIONS</h3>
+            ${data.certifications.map(cert => `<p style="font-size: 12px; margin: 10px 0; padding: 8px; background: rgba(255,255,255,0.2); border-radius: 5px;"><strong>${cert.name || ''}</strong><br>${cert.issuer || ''} (${cert.year || ''})</p>`).join('')}
+        </div>
+        `;
+    }
+    
+    return html;
 }
