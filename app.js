@@ -88,31 +88,23 @@ function createTemplateCard(template) {
     // Rich sample data for better preview
     const sampleData = {
         fullName: 'John Doe',
-        jobTitle: 'Senior Software Developer',
-        email: 'john.doe@email.com',
-        phone: '+1 (555) 123-4567',
+        jobTitle: 'Senior Developer',
+        email: 'john@email.com',
+        phone: '+1 555-1234',
         address: 'New York, NY',
-        linkedin: 'linkedin.com/in/johndoe',
-        summary: 'Experienced software developer with 8+ years of expertise in full-stack development, leading teams, and delivering high-quality solutions.',
+        summary: 'Experienced professional with expertise in software development and team leadership.',
         experience: [
             {
                 position: 'Senior Developer',
-                company: 'Tech Corp',
+                company: 'Tech Corporation',
                 startDate: '2020',
                 endDate: 'Present',
-                description: 'Leading development team and architecting scalable solutions.'
-            },
-            {
-                position: 'Software Engineer',
-                company: 'Digital Solutions',
-                startDate: '2016',
-                endDate: '2020',
-                description: 'Developed web applications and mobile apps.'
+                description: 'Leading development team and architecting solutions.'
             }
         ],
         education: [
             {
-                degree: 'Bachelor of Science in Computer Science',
+                degree: 'BS Computer Science',
                 institution: 'University of Technology',
                 year: '2016'
             }
@@ -121,23 +113,23 @@ function createTemplateCard(template) {
             {name: 'JavaScript'},
             {name: 'Python'},
             {name: 'React'},
-            {name: 'Node.js'},
-            {name: 'SQL'}
+            {name: 'Node.js'}
         ],
         languages: [
-            {name: 'English', level: 'Native'},
-            {name: 'Spanish', level: 'Professional'}
+            {name: 'English', level: 'Native'}
         ],
         certifications: [
-            {name: 'AWS Certified Developer', issuer: 'Amazon', year: '2023'}
+            {name: 'AWS Certified', issuer: 'Amazon', year: '2023'}
         ]
     };
+    
+    const previewHTML = template.generate(sampleData);
     
     card.innerHTML = `
         <div class="template-preview">
             <div class="template-badge">${template.category}</div>
-            <div style="transform: scale(0.15); transform-origin: top left; width: 666%; height: 666%; overflow: hidden;">
-                ${template.generate(sampleData)}
+            <div class="template-preview-wrapper">
+                ${previewHTML}
             </div>
         </div>
         <div class="template-info">
